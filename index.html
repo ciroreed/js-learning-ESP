@@ -1,0 +1,411 @@
+<html>
+    <head>
+        <title>Javascript language</title>
+        <meta name="charset;" content="utf-8">
+
+        <link rel="stylesheet" href="master.css" media="screen" title="no title">
+        <link rel="shortcut icon" href="http://www.favicon.cc/logo3d/4759.png">
+        <link rel="stylesheet" href="node_modules/highlight.js/styles/atom-one-dark.css">
+        <link rel="stylesheet" href="node_modules/reveal/index.css">
+        <link rel="stylesheet" href="node_modules/reveal/theme/night.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section class="index">
+                    <small>A partir de <a href="http://www.w3schools.com/js/default.asp">w3schools.com</a></small>
+                    <br/>
+                    <h3 title="Edición 5.1 de la ECMAScript Standard">Cuestiones avanzadas de Javascript <small>2 hrs</small></h3>
+                    <hr/>
+                    <h5>-- Contenidos --</h5>
+                    <div style="display: flex">
+                        <div style="margin:auto">
+                            <ol>
+                                <li>Vista general</li>
+                                <li>Variables y referencias</li>
+                                <li>Closures</li>
+                                <li>¿Que es `this`?</li>
+                                <li>Las funciones</li>
+                                <li>Prototipos y clases</li>
+                                <li>Código asíncrono</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- slide1 -->
+                <section>
+                    <h4>Breve descripción -- <small>que debes saber?</small></h4>
+                    <p>Es un lenguaje interpretado. Orientado a objetos,
+                        basado en prototipos y tipado dinámico</p>
+                    <ul>
+                        <li>Es el rey de la Web</li>
+                        <li>Es fácil de aprender</li>
+                        <li>Su comunidad no ha parado de crecer en los últimos 8 años</li>
+                        <li>Es un requisito en el mundo del software vengas de donde vengas</li>
+                        <li>Está en contínuo desarrollo</li>
+                        <li>No sólo usado en el desarrollo de front (nodejs, unity3d...)</li>
+                    </ul>
+                </section>
+
+                <!-- slide2 -->
+                <section>
+                    <section>
+                        <h4>1:1 - <small>Tipos</small></h4>
+                        <p>
+                            Todos los valores en Javascript deben pertenecer a un tipo concreto.
+                            <ul>
+                                <li><p>
+                                    Simples: Los tipos simples son los valores básicos.
+                                    Estos pueden ser: number, string, undefined, boolean..
+                                </p></li>
+                                <li><p>
+                                    Compuestos: Los tipos compuestos son Objetos. Todos los objetos en javascript
+                                    son arrays asociativos con valores. Las funciones también son objetos.
+                                    Los veremos mas adelante..
+                                </p></li>
+                            </ul>
+                        </p>
+                        <p>
+                            En javascript para comprobar el tipo de variable tenemos que utilizar la sentencia <b>typeof</b>
+                            <pre><code class="hljs" contenteditable>
+                                var b = "hola";
+                                typeof b; // se evalua a "string"
+                                b = "1";
+                                typeof b; // se evalua a "string"
+                                b = 1;
+                                typeof b; // se evalua a "number"
+                            </code></pre>
+                        </p>
+                    </section>
+                    <section>
+                        <h4>1:2 - <small>Literales</small></h4>
+                        <p>
+                            Javascript permite que todos los tipos simples se puedan expresar de forma literal. Algunos de los tipos complejos también pueden expresarse de forma literal.
+                            <pre><code class="hljs" contenteditable>
+                            1; //número literal
+                            1.43; //float literal (sigue siendo un `number`)
+
+                            "datofono" //cadena literal
+                            [1, 2, 4]; //array literal
+                            {nombre: "pepe", edad: 54}; //literal de objeto
+                            (function(){}); //literal de función
+                            </code></pre>
+                        </p>
+                        <p>
+                            Al declarar un literal estamos creando una referencia a un valor que sólo existe durante la ejecución de esa sentencia misma
+                        </p>
+
+                    </section>
+                    <section>
+                        <h4>1:3 - <small>Keywords</small></h4>
+                        <p>
+                            Todas las keywords de javascript y su respectiva explicación
+                        </p>
+                        <img src="http://i.imgur.com/pSlTTAC.png" />
+                    </section>
+                    <section>
+                        <h4>1:4 - <small>Predefinidos</small></h4>
+                        <p>
+                            En Javascript hay muchos objetos predefinidos. Se puede
+                            acceder a ellos directamente sin ejecutar ninguna sentencia
+                            previa o condición porque son de acceso global. Es decir, son una propiedad de `window` que es nuestro contexto por defecto (en el caso de trabajar en un browser...)
+                        </p>
+                        <p>
+                            Los mas usados y que conviene conocer bien son...
+                            <pre><code class="hljs" contenteditable>
+Array, document, Object, Event, HTMLElement, JSON, RegExp, XMLHttpRequest, NaN, Math...
+                            </code></pre>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects">aquí se pueden consultar más</a>
+                        </p>
+                        <p>
+                            Unos son objetos, otros son clases <u>o funciones constructoras</u>. Es necesario conocer la gran mayoría de estos objetos/clases y sus métodos para poder aprovechar al máximo todas las herramientas que ofrece el lenguaje, que no son pocas a día de hoy.
+                        </p>
+                    </section>
+                    <section>
+                        <h4>1:5 - <small>Otras características</small></h4>
+                        <p>
+                            <ul>
+                                <li>Javascript puede ser ejecutado en el backend con nodejs</li>
+                                <li>MongoDB guarda literales de objetos con el estandar de Javascript</li>
+                                <li>Nadie programa en Javascript `a pelo`</li>
+                                <li><a href="https://www.admixweb.com/the-javascript-framework-bandwagonism/">No hay un claro vencedor</a>
+                                <img src="http://imgur.com/MRBcGPTl.png" />
+                                </li>
+                            </ul>
+                        </p>
+                    </section>
+                </section>
+                <section>
+                    <h4>2 - <small>Variables y referencias</small></h4>
+                    <p>
+                        En Javascript las variables son referencias a valores. Dos
+                        o mas variables pueden compartir una referencia a un valor.
+                        De modo que en javascript el 90% de los casos se asignan por referencia
+                        y no por valor cómo es mas común.
+                    </p>
+                    <pre><code class="hljs" contenteditable>
+                        var A = 2; //declaramos y asignamos el valor 2
+                        var B = A; //declaramos y asignamos el valor de A a B
+                        A = 4; //cambiamos el valor de A
+                        B; //se evalua a 2
+                    </code></pre>
+                    <p>
+                        La asignación por <b>referencia</b> sólo sucede cuando el
+                        valor es un tipo complejo (funciones u objetos):
+                    </p>
+                    <pre><code class="hljs" contenteditable>
+                        var p1 = {name: "tom"};
+                        var p2 = p1;
+                        p1.name = "tim";
+                        p2.name; //se evalua a "tim"
+                    </code></pre>
+                </section>
+                <section>
+                    <h4>3 - <small>Closures</small></h4>
+                    <p>
+                        Un closure es una función que se ha definido en un entorno diferente al que es ejecutada. Cuando definimos una función en Javascript estamos creando un scope o contexto a partir del scope actual.
+                    </p>
+                    <pre><code class="hljs" contenteditable>
+                        var Servicio = function(url){
+                            var privateVariable = 123;
+                            return {
+                                request: function(param){
+                                    //podemos acceder a `url`
+                                    //podemos acceder a `privateVariable`
+                                    //podemos acceder a `param`
+                                },
+                                response: function(){
+                                    //otro método..
+                                },
+                                otro: function(){
+
+                                }
+                            }
+                        }
+                    </code></pre>
+                    <p>
+                        Los closures pueden utilizarse para definir métodos y variables privadas. También nos permite también separar diferentes lógicas en scopes.
+                    </p>
+                </section>
+                <section>
+                    <section>
+                        <h4>4:1 - <small>¿Que es `this`?</small></h4>
+                        <p>
+                            this hace referencia al contexto de la ejecución actual.
+                        </p>
+                        <p>
+                            Los desarrolladores de Javascript pueden tener problemas a la hora de comprender cómo funciona this. Inicialmente this hace la referencia a window (en los browsers). No obstante este va a variar en función de donde se evalue.
+                        </p>
+                        <p>
+                            Si usamos this dentro de una función que es propiedad de un objeto entonces this será una referencia al propio objeto.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            var Utils = {
+                                op1: function(){
+                                    return this.op2() + 2;
+                                    //this es una referencia a Utils
+                                },
+                                op2: function(){
+                                    return 2;
+                                }
+                            }
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h4>4:2 - <small>¿Que es `this`?</small></h4>
+                        <p>
+                            Podemos modificar el contexto de la ejecución con los métodos <i>call</i> y <i>apply</i>
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            var Utils = {
+                                op1: function(){
+                                    return this.op2() + 2;
+                                    //En este caso this no será una referencia a Utils
+                                },
+                                op2: function(){
+                                    return 2;
+                                }
+                            }
+
+                            var ctx = {
+                                op2: function(){
+                                    return 3;
+                                }
+                            }
+
+                            Utils.op1.call(ctx);
+                        </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h4>5:1 - <small>Las funciones</small></h4>
+                        <p>
+                            En Javascript las funciones son objetos. Es decir, tienen propiedades, pueden ser enviadas cómo parámetro, cómo valor de retorno, incluso pueden ser propiedades de otra función! :S
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            function fun1(){
+                                return 1;
+                            };
+
+                            fun1.fun2 = function(){
+                                return 2;
+                            };
+
+                            fun1.fun2.fun3 = new Function("return 3;");
+                        </code></pre>
+
+                    </section>
+                    <section>
+                        <h4>5:2 - <small>Las funciones</small></h4>
+                        <p>
+                            Quizás una de las características de Javascript, que más desconcierta a programadores de otros lenguajes de tipado estático, es la posibilidad de definir funciones anónimas.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            function execute(fn){
+                                return fn();
+                            };
+
+                            execute(function(){
+                                var num = 2;
+                                return num;
+                            });
+                        </code></pre>
+                        <p>
+                            Esto permite enviar funciones cómo parámetros en otras funciones. Algo que con otros lenguajes podemos hacer mediante el polimorfismo.
+                        </p>
+                    </section>
+                    <section>
+                        <h4>5:3 - <small>Las funciones</small></h4>
+                        <p>
+                            Las funciones anónimas son el homónimo literal de otros tipos cómo las string o números. Básicamente su vigencia se limita a la instrucción en la cual son definidas.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                    var Servicio = function(handler){
+                        ...
+
+                        handler(resultado, datos); //hanlder debe ser una función
+                    }
+
+                    var jandler = function(a){ //no podremos usar "datos"
+
+                    };
+
+                    Servicio(jandler);
+                    //Servicio(function(r, d){}); //podemos enviar una función anónima
+                        </code></pre>
+                        <p>
+                            No obstante gracias a los closures podemos "prolongar" la vida de estas funciones si son enviadas como parámetros en una función ya que estamos creando un nuevo ámbito/scope en el que esa función quedará confinada.
+                        </p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h4>6:1 - <small>Prototipos y clases</small></h4>
+                        <p>
+                            Hasta la versión ES2015 (6), Javascript no incorporaba funcionalidad para la keyword `class`.
+                        </p>
+                        <p>
+                            Javascript es un lenguaje orientado a prototipos, lo que quiere decir que las "pseudo" clases (prototipos) pueden modificarse en tiempo de ejecución.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            //Estamos modificando el prototipo `Array` en tiempo de ejecución.
+
+                            Array.prototype.has = function(item){
+                                return this.indexOf(item) > -1;
+                            };
+
+                            //Después de la ejecución de esta instrucción/sentencia
+                            //TODOS los arrays tendrán un nuevo método (de forma `retroactiva`).
+                            //
+                            //Esto NO se debe hacer...
+                        </code></pre>
+                        <p>
+                            Un prototipo es un objeto del cual se hacen copias a la hora de crear instancias. Mientras que una clase es una definición estática (internamente se puede seguir modificando aún usando la notación de ES2016).
+                        </p>
+                    </section>
+                    <section>
+                        <h4>6:2 - <small>Prototipos y clases</small></h4>
+                        <p>
+                            Para crear una `clase` en Javascript primero tenemos que crear una función a modo de constructor. Esto se hace de la siguiente manera.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                        //cómo parámetros de la función instanciamos aquellos valores que
+                        //necesitamos recoger de forma dinámica..
+                        var Contacto = function(nombre, anoNacimiento, telf, email){
+                            this.nombre = nombre;
+                            this.nacimiento = new Date(anoNacimiento, 0, 0);
+                            this.fechaCreacion = new Date;
+                            this.telf = telf;
+                            this.email = email;
+                            this.sumario = function(){
+                                return this.nombre + "\n" + this.fechaCreacion.toString()
+                            }
+                        };
+                        //Declaramos el constructor y luego en tiempo de ejecución
+                        //asignamos las variables.
+                        </code></pre>
+                        <p>
+                            Cabe resaltar que el prototipo Contacto actualmente sólo es un constructor y que las propiedades de `nombre` o `telf` no existen cómo propiedades de la clase. Sólo se instancian cuando se crea un objeto a partir del constructor.
+                        </p>
+                    </section>
+                    <section>
+                        <h4>6:3 - <small>Prototipos y clases</small></h4>
+                        <p>
+                            El ejemplo anterior, además de no ser ordenado, nos impide acceder a las propiedades de la clase en tiempo de ejecución, por ejemplo, para implementar una herencia... o para modificar un método.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                        /* Clase Contacto */
+                        var Contacto = function(nombre, anoNacimiento, telf, email){
+                            this.nombre = nombre;
+                            this.nacimiento = new Date(anoNacimiento, 0, 0);
+                            this.fechaCreacion = new Date;
+                            this.telf = telf;
+                            this.email = email;
+                        };
+
+                        Contacto.prototype.nombre = "";
+                        Contacto.prototype.nacimiento = null;
+                        Contacto.prototype.fechaCreacion = null;
+                        Contacto.prototype.telf = "";
+                        Contacto.prototype.email = "";
+
+                        Contacto.prototype.sumario = function(){
+                            return this.nombre + "\n" + this.fechaCreacion.toString()
+                        };
+
+                        ...
+                        </code></pre>
+                        <p>
+                            De este modo tendríamos acceso a los atributos de la clase en tiempo de ejecución y es mas comprender y modificar el código.
+                        </p>
+                    </section>
+                    <section>
+                        <h4>6:4 - <small>Prototipos y clases</small></h4>
+                        <p>
+                            Acceder a los prototipos es fundamental para poder implementar herencias. Aplicar una herencia es crear un nuevo prototipo a partir de otro `padre` y asignarle un par de propiedades más.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                /* Clase Cliente */
+                var Cliente = function(nombre, anoNacimiento, telf, email, saldo){
+                    Contacto.call(this, nombre, anoNacimiento, telf, email);
+                    this.saldo = saldo;
+                };
+
+                Cliente.prototype = Contacto.prototype;
+                Cliente.prototype.saldo = 0;
+                Cliente.prototype.comprar = function(gasto){
+                    this.saldo -= gasto;
+                };
+
+                ...
+                        </code></pre>
+                    </section>
+                </section>
+            </div>
+        </div>
+        <script src="dist-presentation.js"></script>
+    </body>
+</html>

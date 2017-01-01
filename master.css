@@ -1,0 +1,14 @@
+section.index {
+    background: url("http://2.bp.blogspot.com/-ybjEsh1Icu0/VqRBzF2lEGI/AAAAAAAAD7k/b0HnKNNbaNc/s640/javascript-logo.png");
+    background-size: 30%;
+    background-repeat: no-repeat;
+}
+
+section:first-child h3 {
+    color: firebrick; /* firebrick, burlywood */
+    text-shadow: 3px 3px black;
+}
+
+section h4:first-child {
+    color: firebrick; /* cyan, burlywood */
+}
