@@ -323,7 +323,7 @@ Array, document, Object, Event, HTMLElement, JSON, RegExp, XMLHttpRequest, NaN, 
                             //Esto NO se debe hacer...
                         </code></pre>
                         <p>
-                            Un prototipo es un objeto del cual se hacen copias a la hora de crear instancias. Mientras que una clase es una definición estática (internamente se puede seguir modificando aún usando la notación de ES2016).
+                            Un prototipo es un objeto del cual se hacen copias a la hora de crear instancias. Mientras que una clase es una definición estática (internamente se puede seguir modificando aún usando la notación de ES2015).
                         </p>
                     </section>
                     <section>
@@ -401,6 +401,114 @@ Array, document, Object, Event, HTMLElement, JSON, RegExp, XMLHttpRequest, NaN, 
                 };
 
                 ...
+                        </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h4>7:1 - <small>Código asíncrono</small></h4>
+                        <p>
+                            Javascript tiene un solo hilo de ejecución. No obstante tiene la posibilidad de almacenar procesos en cola para su ejecución posterior. Esto unido a la capacidad de crear closures nos permite ejecutar código asíncrono.
+                        </p>
+                        <p>
+                            Existen bastantes maneras a partir de las cuales javascript va a almacenar el contexto de ciertas funciones para una ejecución posterior. El caso mas famoso es AJAX o los eventos de DOM.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            //ejemplo con jquery
+                            //con js plano usaríamos el objeto XMLHttpRequest
+                            $.get({
+                                url: "/mi-api/cosas"
+                            }).done(function(response){
+                                console.log(response);
+                            });
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h4>7:2 - <small>Código asíncrono</small></h4>
+                        <p>
+                            Javascript se ejecuta cómo un script (porq es un lenguaje de scripting.. hue hue), de arriba a abajo*. Cuando js detecta una llamada asíncrona la almacena. Cuando el hilo de ejecución actual `termina`, js lanza el proceso que debe resolver esa llamada. Y cuando finaliza el flujo continúa en el callback que resuelve esa llamada.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            console.log("1");
+                            setTimeout(function(){
+                                console.log("2");
+                            });
+                            console.log("3");
+                            console.log("4");
+                            console.log("5");
+                        </code></pre>
+                        <p>
+                            *Hay que saber diferenciar entre la declaración y la ejecución de una función.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            //Esto NO es código asíncrono
+
+                            function predicado(item){
+                                return item.charAt(item.length - 2) === "i";
+                            }
+
+                            //...
+                            ["Manzanas", "Peras", "Kiwis"].filter(predicado);
+                            //...
+                        </code></pre>
+                        <hr>
+                        <pre><code class="hljs" contenteditable>
+                            //Esto NO es código asíncrono
+
+                            function init(){ //la función es declarada
+                                //operaciones..
+                            }
+
+                            //...
+                            init(); //la función es ejecutada aquí
+                            //...
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h4>7:3 - <small>Código asíncrono</small></h4>
+                        <p>
+                            Uno de los problemas mas comunes con el código asíncrono es la pérdida del contexto.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            var Servicio = {
+                                url: "10.10.10.10:8084/asdf"
+                                lastOperation: null,
+                                op: function(){
+                                    $.get({
+                                        url: this.url
+                                    }).done(this.handleResponse);
+                                },
+                                handleResponse: function(response){
+                                    //this es window (en el caso de jquery)
+                                    this.lastOperation = response;
+                                }
+                            }
+                        </code></pre>
+                        <p>
+                            El caso anterior es muy común. Para resolverlo podemos usar una maravillosa adición de la versión 5.1, la propiedad `bind`.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            //en este preciso momento this si es el objeto actual
+                            }).done(this.handleResponse.bind(this));
+                        </code></pre>
+                        <p>
+                            Otra manera de resolver el problema es guardando el contexto en una variable auxiliar. No obstante deberíamos definir la función de modo que pudiera capturar la referencia a esa nueva variable dentro del closure.
+                        </p>
+                    </section>
+                    <section>
+                        <h4>7:4 - <small>Código asíncrono</small></h4>
+                        <p>
+                            Javascript no provee ninguna forma de organizar las llamadas asíncronas, de modo que si tuvieramos que hacer llamadas `síncronas`, es decir, que necesitemos que algunas de ellas se lancen después de que otras finalicen tendríamos que resolver esto nosotros.
+                        </p>
+                        <p>
+                            Por defecto javascript almacena pilas de llamadas y las lanza todas al mismo tiempo (no exactamente, pero casi). Sin embargo no tenemos la certeza (javascript no la tiene) de que X va a terminar antes que Y.
+                        </p>
+                        <pre><code class="hljs" contenteditable>
+                            $.get("http://api.servicio1:8080/config").done(function(response){
+                                $.get("http://api.servicio1:8080/otroRecurso?id="+ response).done(function(response){
+                                    //... la piramide de la muerte
+                                });
+                            })
                         </code></pre>
                     </section>
                 </section>
